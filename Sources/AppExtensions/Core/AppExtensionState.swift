@@ -9,6 +9,7 @@
 //
 
 import AppKit
+import ProcessRunner
 
 /// One app extension's state for this user, through `/usr/bin/pluginkit` — the tool System
 /// Settings ▸ General ▸ Login Items & Extensions drives underneath. FinderSync has
@@ -73,14 +74,8 @@ public struct AppExtensionState: Sendable {
 
     /// The real tool, with a 5 s cap so a wedged pluginkit cannot hold the caller.
     public static let pluginkit: Runner = { args in
-        let p = Process()
-        p.executableURL = URL(fileURLWithPath: "/usr/bin/pluginkit")
-        p.arguments = args
-        let pipe = Pipe(); p.standardOutput = pipe; p.standardError = pipe
-        do { try p.run() } catch { return (-1, "") }
-        let done = DispatchSemaphore(value: 0)
-        DispatchQueue.global().async { p.waitUntilExit(); done.signal() }
-        if done.wait(timeout: .now() + 5) == .timedOut { p.terminate(); return (-1, "") }
-        return (p.terminationStatus, String(data: pipe.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) ?? "")
+        let result = ProcessRunner.run("/usr/bin/pluginkit", args, augmentPATH: false, timeout: 5)
+        guard !result.timedOut else { return (-1, "") }
+        return (result.status, result.outputText + result.errorText)
     }
 }

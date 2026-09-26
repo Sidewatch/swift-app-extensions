@@ -7,8 +7,11 @@ let package = Package(
     products: [
         .library(name: "AppExtensions", targets: ["AppExtensions"]),
     ],
+    dependencies: [
+        .package(path: "../swift-process-runner"),
+    ],
     targets: [
-        .target(name: "AppExtensions", path: "Sources", swiftSettings: [.swiftLanguageMode(.v6)]),
+        .target(name: "AppExtensions", dependencies: [.product(name: "ProcessRunner", package: "swift-process-runner")], path: "Sources", swiftSettings: [.swiftLanguageMode(.v6)]),
         .testTarget(name: "AppExtensionsTests", dependencies: ["AppExtensions"], path: "Tests"),
     ]
 )
