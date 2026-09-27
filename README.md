@@ -1,3 +1,7 @@
+> **This package has moved.** It is now the `AppExtensions` module of [swift-macos-services](https://github.com/Sidewatch/swift-macos-services), with its full
+> history. Depend on `.package(url: "https://github.com/Sidewatch/swift-macos-services.git", from: "0.1.0")` and the `AppExtensions` product;
+> `import AppExtensions` is unchanged. This repository is archived.
+
 # Swift App Extensions
 
 An app extension's on/off state for this user, read and flipped through `pluginkit` — for the
