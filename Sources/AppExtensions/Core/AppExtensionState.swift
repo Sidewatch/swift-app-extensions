@@ -6,6 +6,7 @@
 //  extension points macOS gives no API for (Quick Look previews, thumbnails, Spotlight…).
 //
 //  Created by David Sherlock on 9/24/26.
+//  Copyright © 2026 ArrayPress Limited. MIT licence.
 //
 
 import AppKit
