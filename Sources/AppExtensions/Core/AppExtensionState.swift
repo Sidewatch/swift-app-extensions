@@ -18,7 +18,7 @@ import ProcessRunner
 /// extensions have nothing, so this asks: `-m -i <id>` lists the plug-in with `+` (in use), `-`
 /// (ignored) or `!` (blocked), `-e use|ignore -i <id>` flips it, `-a <appex>` registers a bundle
 /// Launch Services has not seen (a fresh build, a moved app). There is no callback when the user
-/// flips it elsewhere, so read the state, never cache it. Extracted from Sidewatch on 24 Sep 2026.
+/// flips it elsewhere, so read the state, never cache it.
 public struct AppExtensionState: Sendable {
     /// What the tool answered: its exit status and its output.
     public typealias Runner = @Sendable (_ arguments: [String]) -> (status: Int32, output: String)
@@ -30,6 +30,8 @@ public struct AppExtensionState: Sendable {
     /// Runs pluginkit (or, in a test, stands in for it).
     public let runner: Runner
 
+    /// A handle on the extension `identifier` whose bundle is `appexURL`; `runner` defaults to
+    /// the real pluginkit.
     public init(identifier: String, appexURL: URL, runner: @escaping Runner = AppExtensionState.pluginkit) {
         self.identifier = identifier
         self.appexURL = appexURL

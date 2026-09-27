@@ -2,7 +2,7 @@
 
 An app extension's on/off state for this user, read and flipped through `pluginkit` — for the
 extension points macOS gives no API for: Quick Look previews and thumbnails, Spotlight, Share.
-Extracted from [Sidewatch](https://github.com/Sidewatch) on 24 Sep 2026, where it backs the
+Extracted from [Sidewatch](https://github.com/Sidewatch), where it backs the
 Settings switch for the Quick Look preview extension.
 
 ```swift
